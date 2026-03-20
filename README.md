@@ -1,82 +1,55 @@
-# mnist-adversarial-defense
+# MNIST Adversarial Defense
 
-## 📌 Objective
-To understand and implement **adversarial attacks** on deep learning models, gain hands-on experience in generating adversarial examples, evaluate model robustness, and apply **defense mechanisms** on a CNN trained on the MNIST dataset.
+Exploring adversarial attacks on deep learning models trained on MNIST
+and implementing defense mechanisms to improve robustness.
 
----
+## Overview
+Adversarial examples are inputs crafted to fool ML models. This project
+implements FGSM (Fast Gradient Sign Method) attacks on a CNN trained on
+MNIST, then evaluates adversarial training as a defense strategy.
 
-## 📂 Project Overview
-This project explores the vulnerability of Convolutional Neural Networks (CNNs) to adversarial attacks and the effectiveness of defense mechanisms.  
-- Built and trained a CNN for **handwritten digit classification** on MNIST.  
-- Applied **FGSM (Fast Gradient Sign Method)** to craft adversarial samples.  
-- Evaluated CNN performance on **clean vs. adversarial data**.  
-- Implemented **adversarial training** to improve model robustness.  
-- Compared performance metrics before and after defense.  
+## Tech Stack
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)
+![Keras](https://img.shields.io/badge/Keras-D00000?style=flat&logo=keras&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat&logo=numpy&logoColor=white)
 
----
+## What is an Adversarial Attack?
+Adversarial attacks add small, imperceptible perturbations to input images
+that cause ML models to misclassify them with high confidence.
+Even a 99% accurate CNN can be fooled by carefully crafted noise.
 
-## 📊 Dataset
-- **MNIST Dataset**:  
-  - Training Samples: 60,000 (28×28 grayscale images)  
-  - Test Samples: 10,000  
-  - Classes: 10 (digits 0–9)  
+## Techniques Covered
+| Technique | Type | Description |
+|-----------|------|-------------|
+| FGSM | Attack | Fast Gradient Sign Method — one-step gradient attack |
+| PGD | Attack | Projected Gradient Descent — iterative attack |
+| Adversarial Training | Defense | Retrain on adversarial examples |
+| Input Preprocessing | Defense | Denoising before inference |
 
----
+## Project Workflow
+1. Train baseline CNN on clean MNIST data
+2. Generate adversarial examples using FGSM
+3. Evaluate accuracy drop under attack
+4. Implement adversarial training defense
+5. Compare clean vs adversarial accuracy before and after defense
+6. Visualise adversarial perturbations
 
-## ⚙️ Project Workflow
-1. **Data Preprocessing**
-   - Normalization of pixel values.
-   - One-hot encoding of labels.
-   - Reshaping images to `(28,28,1)`.
+## Results
+| Scenario | Accuracy |
+|----------|----------|
+| Clean data | ~99% |
+| Under FGSM attack | ~15-40% |
+| After adversarial training | ~85%+ |
 
-2. **CNN Model**
-   - Layers: Conv2D → MaxPooling2D → Dropout → Dense → Softmax.
-   - Optimizer: Adam.
-   - Loss: Categorical Crossentropy.
-   - Achieved **~99% validation accuracy** on clean data.
+## Key Insights
+- Small perturbations invisible to humans cause large accuracy drops
+- Adversarial training significantly improves robustness
+- There is an accuracy-robustness trade-off on clean data
 
-3. **Adversarial Attack**
-   - Implemented **FGSM Attack** with ε = 0.25.
-   - Generated adversarial examples by adding perturbations to clean images.
-   - Observed performance drop on adversarial inputs (~72% accuracy).
-
-4. **Defense Mechanism**
-   - Applied **Adversarial Training** with perturbed samples.
-   - Improved adversarial accuracy from **~72% → ~96%**.
-   - Maintained clean accuracy (~99%).
-
-5. **Evaluation**
-   - Compared original vs. defended model.
-   - Visualized accuracy/loss curves, confusion matrices, adversarial samples.
-
----
-
-## 📈 Results
-- **Original Model**  
-  - Clean Test Accuracy: **99.2%**  
-  - Adversarial Test Accuracy: **72.2%**  
-
-- **Robust Model (after defense)**  
-  - Clean Test Accuracy: **99.2%**  
-  - Adversarial Test Accuracy: **96.2%**  
-
----
-
-## 📌 Key Learnings
-- CNNs are highly accurate on clean data but vulnerable to adversarial attacks.  
-- FGSM can significantly degrade model performance.  
-- Adversarial training is an effective strategy to improve robustness.  
-- Trade-offs exist between robustness and accuracy, but defense can greatly reduce risk.  
-
----
-
-## 📦 Requirements
-Create a `requirements.txt` with:
-```txt
-numpy
-pandas
-matplotlib
-seaborn
-scikit-learn
-tensorflow
-keras
+## Setup
+```bash
+git clone https://github.com/LuciferMorningStar2605/mnist-adversarial-defense.git
+pip install tensorflow keras numpy matplotlib
+jupyter notebook
+```
